@@ -1,5 +1,6 @@
-Here is the complete, cohesive narrative tracing the entire lifecycle of the MOSFET from a dead stop up to saturation, formatted cleanly for your Obsidian vault.
 
+![[Pasted image 20260710110439.png]]
+![[Pasted image 20260710110453.png]]
 # The Complete MOSFET Story: From Dead Stop to Pinch-Off
 
 ## Act I: The Dead Stop (Cutoff Region)
@@ -97,6 +98,7 @@ An **Output Wire** is connected directly to the Drain of a transistor. The goal 
 ---
 
 ## Act II: The NFET Configuration
+![[Pasted image 20260710110926.png]]
 
 ```
              Input Wire (Gate)
@@ -155,10 +157,15 @@ A PFET operates on inverted electrostatics, requiring a negative vertical field 
 
 Because closing this PFET switch creates a direct, highly conductive path that forces the voltage of the Output Wire up to match the maximum $V_{DD}$ line, this configuration is structurally defined as a **Pull-Up circuit**.
 
+
+![[Pasted image 20260710110822.png]]
+
 ---
 
 ## Act IV: Assembling the NOT Gate
 
+
+![[Pasted image 20260710110754.png]]
 By pairing these two configurations onto the exact same lines, we construct the **CMOS NOT Gate (Inverter)**.
 
 ### The Integrated Blueprint:
