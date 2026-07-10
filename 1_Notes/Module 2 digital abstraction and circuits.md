@@ -119,3 +119,92 @@ Here is the precise sequence using your analogy:
 So technically the output will first give 0V letters out until contamination delay, then some fluctuations and then give 1V letter as the input changes from 0V to 1V for a combinational buffer
 
 ![[Pasted image 20260708125919.png]]
+
+---
+# Contamination delay is the measure of time of how long the output gives previous signal for which input stays invalid or changed itself
+
+# The propagation time is the delay from when the input becomes _valid_ as it crosses VIH and when the output becomes _valid_ as it crosses VOL.
+
+# Propagation delay is the time when input is valid and for how time output stays invalid, or till output stabilizes.
+
+---
+
+Here is the next chapter for your Obsidian vault. It covers the general CMOS recipe, the physics of structural duality, the exact definitions of $t_{pd}$ and $t_{cd}$, and the core concept of **Leniency**.
+
+---
+
+# CMOS Gate Synthesis and Timing Dynamics
+
+![[Pasted image 20260710161432.png]]
+
+## Act I: The Dual CMOS Recipe
+
+To build any arbitrary logic function beyond a simple NOT gate, we use a structured mirroring technique. Because PFETs and NFETs require opposite gate voltages to close their switches, the pull-up network (PUN) and pull-down network (PDN) must be **topological duals** of each other. This duality is rooted directly in **De Morgan's Laws**.
+
+![[Pasted image 20260710161455.png]]
+
+### The Mapping Rules:
+
+* **Series components** in the Pull-Up network map to **Parallel components** in the Pull-Down network.
+* **Parallel components** in the Pull-Up network map to **Series components** in the Pull-Down network.
+
+### Example Synthesis ($F = \bar{A} + \bar{B}\cdot\bar{C}$):
+
+1. **Pull-Up Network (PFETs):** To output a `1`, we need $A$ to be `0` **OR** ($B$ to be `0` **AND** $C$ to be `0`).
+* Structurally, PFET $A$ is placed in **parallel** with a branch containing PFET $B$ and PFET $C$ in **series**.
+
+
+2. **Pull-Down Network (NFETs):** We apply the duality rule to find the complementary path to Ground.
+* The parallel connection to $A$ becomes a **series** connection to NFET $A$.
+* The series branch of $B$ and $C$ becomes a **parallel** network of NFET $B$ and NFET $C$.
+
+
+
+---
+
+## Act II: Digital Timing Specifications ($t_{pd}$ and $t_{cd}$)
+
+![[Pasted image 20260710161524.png]]
+
+In the physical world, voltages cannot change instantly. When an input wire changes state, it takes time for the internal parasitic capacitors to charge or discharge before the output wire stabilizes. We measure this lag using two strict limits:
+
+### 1. Contamination Delay ($t_{cd}$)
+
+* **Definition:** The **shortest possible time** from a valid input transition to the absolute first moment the output wire begins to change its voltage.
+* **Why it matters:** It defines how long an output is guaranteed to remain stable after its inputs start changing. This is critical for preventing racing conditions in sequential logic.
+
+![[Pasted image 20260710161608.png]]
+
+### 2. Propagation Delay ($t_{pd}$)
+
+* **Definition:** The **longest possible time** from a valid input transition to the moment the output wire completely settles into its final, valid digital state.
+* **Why it matters:** It defines the absolute worst-case speed of the gate. This limit dictates the maximum clock frequency of the processor.
+
+![[Pasted image 20260710161548.png]]
+
+---
+
+
+![[Pasted image 20260710161639.png]]
+
+![[Pasted image 20260710161721.png]]
+
+---
+
+## Act III: Lenient Gates
+
+A gate is defined as **Lenient** if its output can be completely determined by a subset of its inputs, making changes on the remaining inputs irrelevant for that specific transition.
+
+### The Classic Example (2-Input OR Gate: $Y = A + B$)
+
+* Suppose Input $A$ is a solid, stable `1`.
+* Because $A$ is `1`, the output $Y$ is guaranteed to be `1`, regardless of whether Input $B$ is a `0`, a `1`, or floating in mid-air.
+
+### How Leniency Impacts Timing Diagrams:
+
+If Input $B$ transitions while Input $A$ is locked at `1`, **the output wire does not move at all.** * When creating the overall timing specifications for a chip, we **cannot** simply look at these lenient transitions, because their individual delay is effectively infinite (the output never reacts to that specific input).
+
+* To find the true, global $t_{pd}$ and $t_{cd}$ of a device, we must scan the graph to find the **worst-case paths**: the absolute fastest path where the output *does* change to find $t_{cd}$, and the absolute slowest path to find $t_{pd}$.
+
+Leniency allows complex processors to run faster in practice because the system can often bypass waiting for slow, late-arriving inputs if an early input has already definitively decided the final answer.
+
