@@ -17,3 +17,4 @@
 * **The Ultimate Check:** Look at the current chart. 
   - Sharp, quick dips that return to 0A mean the circuit is perfect (only drawing power dynamically while switching).
   - A flat line stuck far below 0A means I messed up De Morgan's dual layout, causing both networks to stay open at the same time, short-circuiting power straight to ground.
+  - ![](brave_screenshot_computationstructures.org%20(4).png)
