@@ -14,7 +14,7 @@
 - ==We define few voltage ranges to take some values as 0 and some as 1==
   ![[Pasted image 20260702150531.png]]![[Pasted image 20260702150603.png]]
 - ==We as engineers find out materials and structurally place them to create the combinational device such that it has the specific voltage thresholds, but this is not that efficient at bigger stages, then we use the specific devices such as Analog to Digital Converter (ADC)==
-- Our proposed fix to the noise problem is to provide separate signaling specifications for digital inputs and digital outputs. To send a 0, digital outputs must produce a voltage less than or equal to VOL and to send a 1, produce a voltage greater than or equal to VOH. So far this doesn’t seem very different than our previous signaling specification...
+- Our proposed fix to the noise problem is to provide separate signaling specifications for digital inputs and digital outputs. To send a 0, digital outputs must produce a voltage equal to VOL and to send a 1, produce a voltage equal to VOH. So far this doesn’t seem very different than our previous signaling specification...
 
 - The difference is that digital inputs must obey a different signaling specification. Input voltages less than or equal to VIL must be interpreted as a digital 0 and input voltages greater than or equal to VIH must be interpreted as a digital 1.
 

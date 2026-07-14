@@ -253,3 +253,21 @@ Since the length ($L$) is typically kept at the minimum manufacturable size for 
 By widening the PFET, you structurally compensate for its sluggish holes. The increased cross-sectional area perfectly balances the electrical strength of the two networks. When the input hits $V_{DD}/2$, the wide-but-slow PFET and the narrow-but-fast NFET fight to a perfect tie, shifting the VTC cliff exactly back to the center ($1.5\text{ V}$) and maximizing your noise margins!
 
 
+# Worksheet Points to Remember
+1. Truth table is the best way to map transistors. Truth table is the medium by which we find out the leniency of system. 
+
+2. If we are given then F(1,0,1,0)=1. This means that PFET is on and NFET is off. To turn on PFET, B and C are enough (leniency cracked) and A and C are not enough to turn NFET on. This means that in PFETs, B,C are in series, or in parallel and independant of A and D.
+
+3. To draw CMOS gates ALWAYS use the truth table method. This is because, if you map it individual gate way (NAND and NOR), each gate has its own CMOS representation and it will be highly complex nested multi gate/stage CMOS network which is inefficient.
+
+4. In any CMOS circuit, If all PFETs are on(input =0) the output should be 1 and vice versa for NFETs, otherwise no appropriate CMOS circuit will exist for given truth table
+
+5. To convert a truth table to set of transistors, take the rows of only 0 output for NFET combination (or with output 1 for PFETs). For each of these rows, write a boolean term, for example F(1,1,0), F(1,1,1), F(1,0,1), F(0,1,1) gives output 0. So F= AB+ABC+AC+BC (multiplication for series and add for parallel). Now remove uncessary terms like ABC. Try to minimize number of transistors. F=AB+BC+AC is 6 transistors. Use Boolean algebra to minimize, F=B(A+C)+AC, this has 5 transistors, now map it. Invert (series to parallel and vice versa, NFET to PFET and vice versa) to get PFET network, combine the outputs to get CMOS.
+
+6. To implement a given formula into CMOS, Like F=(A+B+C)whole bar; if you are operating with A,B,C then it is a NFET system, if you are working with A_,B_,C_ then it is a PFET system. You can ignore the whole bar when making NFET cause NFETs and PFETs are naturally inverting.
+
+7. Contamination delay is the time for which **==input is not a previous input (may be invalid or valid other input whatever but not previous input) but output is valid previous output==**
+8. Propagation delay is the time for which **==input is a valid new but output is not valid new.
+==**
+9. 
+   

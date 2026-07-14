@@ -1,4 +1,13 @@
 # CMOS Lab: What Actually Matters
+- $V_{IL}$: The maximum input voltage guaranteed to be recognized as a **Low (0)**.
+    
+- $V_{IH}$: The minimum input voltage guaranteed to be recognized as a **High (1)**.
+    
+- $V_{OL}$: The output voltage produced when the input is a valid High.
+    
+- $V_{OH}$: The output voltage produced when the input is a valid Low.
+
+For an inverter, $V_{OH}$ is the output when $V_{in} = V_{OL}$, and $V_{OL}$ is the output when $V_{in} = V_{OH}$.
 
 ## 1. Noise Margins & The PFET Tweak
 * **What I learned:** Noise margins tell me how much electrical garbage/distortion a gate can handle before it misreads a 1 as a 0. I found the limits by looking at where the VTC curve drops at a steep 45-degree angle (slope = -1).
